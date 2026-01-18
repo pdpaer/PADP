@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "padp"
+version = "0.1.0"
+description = "Photonic Automated Design Platform"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+authors = [
+    {name = "PADP Team", email = ""}
+]
+license = {text = "MIT"}
+keywords = ["photonics", "gdsfactory", "chip-design"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "gdsfactory>=9.31.0",
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib<4",
+    "shapely<3",
+    "pyyaml",
+    "orjson<4",
+    "loguru<1",
+    "rich<15",
+    "typer<1",
+    "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-xdist",
+    "ruff>=0.8.3",
+    "mypy",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

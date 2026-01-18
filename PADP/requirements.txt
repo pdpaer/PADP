@@ -1,0 +1,29 @@
+# Core dependencies
+gdsfactory>=9.31.0
+numpy
+scipy
+pandas
+matplotlib<4
+shapely<3
+
+# Data formats
+pyyaml
+orjson<4
+
+# Utilities
+loguru<1
+rich<15
+typer<1
+pydantic>=2
+
+# Development
+pytest
+pytest-cov
+pytest-xdist
+ruff>=0.8.3
+mypy
+
+# Optional: Simulation tools
+# tidy3d
+# meep
+# sax
