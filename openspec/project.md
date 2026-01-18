@@ -1,14 +1,53 @@
 # 项目上下文
 
+## 项目信息
+
+**项目名称**: PADP (Photonic Automated Design Platform / 光子自动化设计平台)
+
+**Git 仓库**: https://github.com/pdpaer/PADP.git
+
+**项目结构**:
+```
+/home/ubuntu/gdsfactory_project/
+├── PADP/              # PADP项目主目录（代码实现）
+│   ├── src/           # 源代码
+│   │   ├── components/    # 通用组件库
+│   │   ├── designs/        # 设计实现（cpo/npo/ocs/oio）
+│   │   ├── utils/          # 工具函数
+│   │   └── pdk/            # PDK配置
+│   ├── result/        # 设计结果输出（按类型组织）
+│   │   ├── cpo/       # CPO设计结果（gds/stl/images/reports/simulation）
+│   │   ├── npo/       # NPO设计结果
+│   │   ├── ocs/       # OCS设计结果
+│   │   └── oio/       # OIO设计结果
+│   ├── docs/          # 文档目录
+│   ├── tests/         # 测试目录
+│   ├── scripts/       # 脚本工具
+│   └── config/        # 配置文件
+└── openspec/          # OpenSpec规范（与PADP同级，需求与实现分离）
+    ├── project.md     # 项目上下文（本文件）
+    ├── AGENTS.md      # AI助手工作流程
+    ├── specs/         # 当前规范
+    └── changes/       # 变更提案
+```
+
 ## 项目目的
 
 本项目通过 **OpenSpec** 管理的规范驱动开发工作流，使用 **gdsfactory** 进行光子集成电路（PIC）设计。
 
 **项目目标：**
+- 基于 gdsfactory 和 OpenSpec 构建结构化的光芯片设计项目框架
+- 支持多种设计类型（CPO、NPO、OCS、OIO）的组织和管理
 - 使用 gdsfactory 的参数化组件系统设计光子芯片（波导、耦合器、MMI、光栅耦合器等）
 - 通过 OpenSpec 管理设计需求、约束和规范
-- 保持设计规范（在 `openspec/` 中）与实现代码（在 `gdsfactory/` 中）的清晰分离
+- 保持设计规范（在 `openspec/` 中）与实现代码（在 `PADP/` 中）的清晰分离
 - 实现端到端设计流程：设计 → 验证（DRC, LVS）→ 验证（仿真、测试）
+
+**设计类型：**
+- **CPO**: Co-Packaged Optics（共封装光学器件）
+- **NPO**: Near-Package Optics（近封装光学器件）
+- **OCS**: Optical Circuit Switch（光路开关）
+- **OIO**: Optical Input/Output（光输入/输出）
 
 **工作流程：**
 1. **Vibe编程阶段**：高层规划、愿景设计、系统架构分析
@@ -65,10 +104,11 @@
 - **截面模式**: 将波导截面定义与路径分开
 
 **文件组织：**
-- 组件定义在 `gdsfactory/components/`
-- 技术/PDK 定义在 `gdsfactory/generic_tech/` 或自定义 PDK 文件夹
-- 测试在 `tests/` 目录
-- 版图输出（GDS 文件）在指定的输出目录
+- 组件定义在 `PADP/src/components/`
+- 设计实现按类型组织在 `PADP/src/designs/{cpo,npo,ocs,oio}/`
+- 技术/PDK 定义在 `PADP/src/pdk/`
+- 测试在 `PADP/tests/` 目录
+- 版图输出（GDS/STL 文件）在 `PADP/result/{type}/{gds,stl,images,reports,simulation}/`
 
 ### 测试策略
 
@@ -113,7 +153,8 @@ pytest tests/test_components.py
 **与 OpenSpec 的集成：**
 - 在进行重大更改之前创建 OpenSpec 变更提案
 - 实现后归档已完成的更改
-- 保持 `openspec/` 和 `gdsfactory/` 的更改同步
+- 保持 `openspec/` 和 `PADP/` 的更改同步
+- OpenSpec 与 PADP 在同一级目录，保持需求与实现分离
 
 ## 领域上下文
 
